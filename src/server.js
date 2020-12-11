@@ -1,6 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const mysql =require('mysql');
 
 //Inicializadores 
 
@@ -9,15 +10,12 @@ const app = express();
 //Settings
 app.set("port", process.env.PORT || 3000)
 app.set("views", path.join(__dirname, "views"));
-app.engine(
-  ".hbs",
-  exphbs({
+app.engine('.hbs', exphbs({
     defaultLayout: "main",
-    layoutsDir: path.join(app.get("views"), "layouts"),
+    layoutsDir: path.join(app.get("views"), "layouts"), //Uno los directorios 
     partialsDir: path.join(app.get("views"), "partials"),
-    extname: ".hbs",
-  })
-);
+    extname: ".hbs",//Nombro la extension 
+  }));
 app.set("view engine", ".hbs");
 
 //Middlewares
@@ -28,7 +26,7 @@ app.use(express.urlencoded({ extended: false }
 
 //Routes
 app.use(require('./routes/index.routes')); //Utiliza el archivo index.routes.js
-app.use(require('./routes/users.routes')); //Utiliza el  archivo users.routes.js
+
 
 //Static Files
 
